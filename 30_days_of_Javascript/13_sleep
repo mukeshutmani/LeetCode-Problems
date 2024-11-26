@@ -1,0 +1,6 @@
+async function sleep(millis) {
+
+   return  promise1 = new Promise((resolve) => {
+        setTimeout(() =>resolve(millis), millis )})
+
+}
