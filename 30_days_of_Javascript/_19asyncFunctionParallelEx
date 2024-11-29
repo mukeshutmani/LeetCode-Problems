@@ -1,0 +1,42 @@
+var promiseAll = function(functions) {
+     return new Promise((resolve, reject) => {
+           let results = [];
+           let completed = 0;
+           let hasrejected = false
+         
+         functions.forEach((func, index) => {
+             func()
+             .then((result) => {
+                 results[index] = result;
+                 completed++;
+
+                 if(completed === functions.length && !hasrejected) {
+                      resolve(results)
+                 }
+             })
+             .catch((error) => {
+               if(!hasrejected) {
+                  hasrejected = true
+                  reject(error)
+               }
+             })
+         })
+
+         if(functions.length === 0) {
+            resolve(results)
+         }
+
+     })
+};
+
+
+
+const fn = []
+
+promiseAll(fn)
+.then((results)=> {
+     console.log(results)
+})
+.catch((error) => {
+  console.log(error)
+})
